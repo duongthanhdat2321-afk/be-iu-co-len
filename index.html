@@ -14,26 +14,25 @@
             font-family: 'Arial', sans-serif;
         }
 
-        /* Hiệu ứng hoa 🌸 rơi mượt mà */
+        /* Hoa anh đào 🌸 */
         .sakura {
             position: absolute;
-            top: -10vh; /* Luôn bắt đầu từ ngoài màn hình phía trên */
-            font-size: 20px;
+            top: -10%; /* Luôn bắt đầu từ phía trên màn hình */
             user-select: none;
             pointer-events: none;
-            animation: fall linear infinite;
             z-index: 1;
+            animation: fall linear infinite;
         }
 
         @keyframes fall {
             0% {
-                transform: translateY(0) rotate(0deg);
+                transform: translateY(0vh) rotate(0deg);
                 opacity: 0;
             }
             10% {
                 opacity: 1;
             }
-            90% {
+            95% {
                 opacity: 1;
             }
             100% {
@@ -76,7 +75,6 @@
             line-height: 1.7;
             margin: 0;
             text-align: center;
-            word-wrap: break-word;
         }
 
         .heart-text {
@@ -105,7 +103,6 @@
             border-radius: 50%;
             z-index: 20;
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
     </style>
 </head>
@@ -129,43 +126,40 @@
         <div class="note">(Chạm vào màn hình để nghe nhạc nhen)</div>
     </div>
 
-    <audio id="bg-music" loop>
+    <audio id="bg-music" loop preload="auto">
         <source src="background_music.mp3" type="audio/mpeg">
     </audio>
 
     <script>
         function createSakura() {
-            const petalCount = 25;
+            const container = document.body;
+            const petalCount = 30;
+
             for (let i = 0; i < petalCount; i++) {
                 const petal = document.createElement('div');
                 petal.className = 'sakura';
-                petal.innerHTML = '🌸'; // Sử dụng icon bạn chọn
+                petal.innerHTML = '🌸'; // Đảm bảo dùng đúng icon 🌸
                 
-                // Vị trí ngang ngẫu nhiên
                 petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.fontSize = (Math.random() * 10 + 15) + 'px';
                 
-                // Kích thước ngẫu nhiên
-                const size = Math.random() * 10 + 15 + 'px';
-                petal.style.fontSize = size;
+                const duration = Math.random() * 5 + 5;
+                petal.style.animationDuration = duration + 's';
                 
-                // Tốc độ rơi ngẫu nhiên
-                petal.style.animationDuration = Math.random() * 5 + 5 + 's';
-                
-                // Sửa lỗi rơi từ giữa: Lượt đầu tiên cho delay ngắn để rơi từ trên xuống ngay
-                petal.style.animationDelay = Math.random() * 10 + 's';
-                
-                document.body.appendChild(petal);
+                // Dùng delay âm để hoa đã "đang rơi" sẵn khi vừa mở trang
+                petal.style.animationDelay = (Math.random() * -10) + 's';
+
+                container.appendChild(petal);
             }
         }
-        
-        // Gọi hàm tạo hoa
+
         createSakura();
 
         const music = document.getElementById('bg-music');
         let isStarted = false;
         function startMusic() {
             if (!isStarted) {
-                music.play().catch(e => console.log("Audio play failed"));
+                music.play().catch(console.error);
                 isStarted = true;
             }
         }
