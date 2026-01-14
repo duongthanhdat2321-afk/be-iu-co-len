@@ -14,71 +14,72 @@
             font-family: 'Arial', sans-serif;
         }
 
-        /* Hiệu ứng cánh hoa Sakura bằng CSS (Mượt, không lag) */
+        /* Sakura Petals - Fix rõ hơn và mượt hơn */
         .sakura {
             position: absolute;
-            background: #ffb7c5;
+            background: #ffecf0; /* Màu hồng trắng sáng để nổi bật */
             border-radius: 100% 0 100% 100%;
             pointer-events: none;
             animation: fall linear infinite;
-            z-index: 1;
+            z-index: 2;
+            box-shadow: 0 0 5px rgba(255,255,255,0.5);
         }
 
         @keyframes fall {
             0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
             100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Khung Card: Trong suốt, nhỏ gọn */
+        /* Card - Fix trong suốt và ôm sát chữ */
         .card {
-            width: 88%;
-            max-width: 320px;
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 25px;
-            padding: 25px 15px;
+            width: 90%;
+            max-width: 340px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+            padding: 20px 10px;
             text-align: center;
             z-index: 10;
-            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
         }
 
+        /* Sticker mới - Link ổn định hơn */
         .sticker {
-            width: 75px;
-            height: 75px;
-            margin: 0 auto 15px;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 10px;
             display: block;
-            animation: bounce 2s infinite ease-in-out;
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        /* Tiêu đề */
         h1 {
             color: #d81b60;
-            font-size: 1.25rem;
+            font-size: 1.4rem;
             margin: 0 0 15px 0;
             white-space: nowrap;
         }
 
-        /* Nội dung văn bản mới */
-        .message {
+        /* Fix xuống dòng - Ép mỗi dòng nằm trên 1 hàng */
+        .message-line {
+            display: block;
+            white-space: nowrap;
+            font-size: 0.8rem; /* Cỡ chữ tối ưu cho mobile */
             color: #444;
-            font-size: 0.82rem; /* Chỉnh nhỏ lại một chút để không xuống dòng xấu */
-            line-height: 1.6;
-            margin: 0;
+            line-height: 1.8;
+        }
+
+        /* Tự động thu nhỏ chữ nếu màn hình quá bé (iPhone SE/7/8) */
+        @media (max-width: 360px) {
+            .message-line { font-size: 0.72rem; }
+            h1 { font-size: 1.2rem; }
         }
 
         .heart-text {
             color: #e91e63;
             font-weight: bold;
-            font-size: 0.95rem;
+            font-size: 1rem;
             display: block;
             margin-top: 15px;
         }
@@ -86,7 +87,7 @@
         .note {
             font-size: 0.65rem;
             color: #666;
-            margin-top: 20px;
+            margin-top: 15px;
             font-style: italic;
         }
 
@@ -100,9 +101,6 @@
             height: 35px;
             border-radius: 50%;
             z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
     </style>
 </head>
@@ -111,19 +109,20 @@
     <button id="music-btn">🎵</button>
 
     <div class="card">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHYybm9pNm1ndXF4bmE1eGZicWxqZzh4Z3B4amV4Zzh4Z3B4amV4ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/L4lvBpHFmE01BwR4rI/giphy.gif" class="sticker">
+        <img src="https://media.tenor.com/26SAnpBvX7AAAAAi/mochi-peach.gif" class="sticker">
         
         <h1>Bé iu cố lên nhé ❤️</h1>
         
         <div class="message">
-            Tối nay bé cứ bình tĩnh, tự tin, hông phải lo lắng gì cả<br>
-            Anh dù ở hơi xa nhưng luôn dõi theo và cổ vũ bé hết mình!<br>
-            Bé đừng áp lực gì nhen, cứ thoải mái phát huy hết sức nha!<br>
-            Cục dàng của anh là giỏi nhất! 🏆
+            <span class="message-line">Tối nay bé cứ bình tĩnh, tự tin, hông phải lo lắng gì cả</span>
+            <span class="message-line">Anh dù ở hơi xa nhưng luôn dõi theo và cổ vũ bé hết mình!</span>
+            <span class="message-line">Bé đừng áp lực gì nhen, cứ thoải mái phát huy hết sức nha!</span>
+            <span class="message-line">Cục dàng của anh là giỏi nhất! 🏆</span>
+            
             <span class="heart-text">Yêu bé nhiều lắm ó</span>
         </div>
 
-        <div class="note">(Chạm vào màn hình để nghe nhạc nha bé)</div>
+        <div class="note">(Chạm vào màn hình để nghe nhạc nhen bé)</div>
     </div>
 
     <audio id="bg-music" loop>
@@ -131,35 +130,33 @@
     </audio>
 
     <script>
-        // Hiệu ứng cánh hoa rơi
         function createSakura() {
-            const petalCount = 12; 
+            const petalCount = 25; // Tăng số lượng cánh hoa
             for (let i = 0; i < petalCount; i++) {
                 setTimeout(() => {
                     const petal = document.createElement('div');
                     petal.className = 'sakura';
                     petal.style.left = Math.random() * 100 + 'vw';
-                    const size = Math.random() * 7 + 7 + 'px';
+                    const size = Math.random() * 10 + 8 + 'px';
                     petal.style.width = size;
                     petal.style.height = size;
-                    petal.style.animationDuration = Math.random() * 3 + 5 + 's';
+                    petal.style.animationDuration = Math.random() * 3 + 4 + 's';
+                    petal.style.opacity = Math.random();
                     document.body.appendChild(petal);
                     
                     petal.addEventListener('animationiteration', () => {
                         petal.style.left = Math.random() * 100 + 'vw';
                     });
-                }, i * 400);
+                }, i * 200);
             }
         }
         createSakura();
 
-        // Phát nhạc khi chạm
         const music = document.getElementById('bg-music');
         let isStarted = false;
-
         function startMusic() {
             if (!isStarted) {
-                music.play().catch(e => console.log("Cần chạm để phát nhạc"));
+                music.play().catch(e => console.log("Music play error"));
                 isStarted = true;
             }
         }
