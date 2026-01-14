@@ -14,10 +14,10 @@
             font-family: 'Arial', sans-serif;
         }
 
-        /* Hoa anh đào 🌸 */
+        /* Cánh hoa Sakura mềm mại bằng SVG */
         .sakura {
             position: absolute;
-            top: -10%; /* Luôn bắt đầu từ phía trên màn hình */
+            top: -50px; /* Luôn xuất hiện từ phía trên ngoài màn hình */
             user-select: none;
             pointer-events: none;
             z-index: 1;
@@ -26,17 +26,14 @@
 
         @keyframes fall {
             0% {
-                transform: translateY(0vh) rotate(0deg);
+                transform: translateY(0) rotate(0deg) translateX(0);
                 opacity: 0;
             }
-            10% {
-                opacity: 1;
-            }
-            95% {
-                opacity: 1;
-            }
+            15% { opacity: 0.8; }
+            90% { opacity: 0.8; }
             100% {
-                transform: translateY(110vh) rotate(360deg);
+                /* Hiệu ứng rơi có chút đung đưa sang ngang cho tự nhiên */
+                transform: translateY(110vh) rotate(360deg) translateX(50px);
                 opacity: 0;
             }
         }
@@ -135,19 +132,30 @@
             const container = document.body;
             const petalCount = 30;
 
+            // Hình ảnh cánh hoa SVG màu hồng nhẹ nhàng
+            const sakuraSvg = `
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 0C10 0 13 5 18 5C23 5 20 10 15 12C20 15 15 20 10 17C5 20 0 15 5 12C0 10 -3 5 2 5C7 5 10 0 10 0Z" fill="#FFB7C5"/>
+                </svg>
+            `;
+
             for (let i = 0; i < petalCount; i++) {
                 const petal = document.createElement('div');
                 petal.className = 'sakura';
-                petal.innerHTML = '🌸'; // Đảm bảo dùng đúng icon 🌸
+                petal.innerHTML = sakuraSvg;
                 
                 petal.style.left = Math.random() * 100 + 'vw';
-                petal.style.fontSize = (Math.random() * 10 + 15) + 'px';
                 
-                const duration = Math.random() * 5 + 5;
+                // Kích thước ngẫu nhiên
+                const scale = Math.random() * 0.8 + 0.5;
+                petal.style.transform = `scale(${scale})`;
+                
+                // Tốc độ rơi ngẫu nhiên
+                const duration = Math.random() * 5 + 7;
                 petal.style.animationDuration = duration + 's';
                 
-                // Dùng delay âm để hoa đã "đang rơi" sẵn khi vừa mở trang
-                petal.style.animationDelay = (Math.random() * -10) + 's';
+                // Delay âm để hoa rơi rải rác ngay từ khi mở trang (sửa lỗi rơi từ giữa)
+                petal.style.animationDelay = (Math.random() * -15) + 's';
 
                 container.appendChild(petal);
             }
