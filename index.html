@@ -2,230 +2,167 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bé iu cố lên! 🏸🌸</title>
     <style>
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
-            margin: 0;
-            overflow: hidden; /* Hide scrollbars for falling petals */
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            margin: 0; padding: 0; overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
             min-height: 100vh;
-            background-color: #ffe0f0; /* Soft pink background */
-            position: relative;
-            background-image: linear-gradient(to top, #ffe0f0 0%, #ffc0cb 100%); /* Gradient pink */
+            background: linear-gradient(180deg, #ffafbd 0%, #ffc3a0 100%);
+            font-family: 'Arial', sans-serif;
         }
 
-        .card-container {
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            padding: 30px;
-            text-align: center;
-            max-width: 90%;
-            width: 400px;
-            position: relative;
-            z-index: 10; /* Above petals */
-            backdrop-filter: blur(5px); /* Frosted glass effect */
-        }
-
-        h1 {
-            color: #d81b60; /* Deep pink */
-            font-size: 2.5em;
-            margin-bottom: 15px;
-            animation: bounceIn 1s ease-out;
-        }
-
-        p {
-            color: #e91e63; /* Medium pink */
-            font-size: 1.2em;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background-color: #ff4081; /* Bright pink button */
-            color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1em;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        .cta-button:hover {
-            background-color: #e91e63;
-            transform: scale(1.05);
-        }
-
-        /* Sakura Petals Animation */
-        .petal {
+        /* Hiệu ứng cánh hoa Sakura bằng CSS (Mượt, không lag) */
+        .sakura {
             position: absolute;
-            background-image: url('sakura_petal.png'); /* You need to provide this image */
-            background-size: contain;
-            background-repeat: no-repeat;
-            width: 20px;
-            height: 20px;
-            opacity: 0;
+            background: #ffb7c5;
+            border-radius: 100% 0 100% 100%;
+            pointer-events: none;
             animation: fall linear infinite;
-            pointer-events: none; /* Do not block clicks */
             z-index: 1;
         }
 
         @keyframes fall {
-            0% {
-                transform: translate(0, -100px) rotateZ(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translate(var(--end-x), 100vh) rotateZ(var(--rotation-end));
-                opacity: 0;
-            }
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Cute Sticker Animation */
-        .cute-sticker {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            width: 80px;
-            height: 80px;
-            background-image: url('cute_sticker.gif'); /* You need to provide this animated GIF */
-            background-size: contain;
-            background-repeat: no-repeat;
-            z-index: 15; /* Above card and petals */
-            animation: float 3s ease-in-out infinite alternate;
+        /* Khung Card: Trong suốt, nhỏ gọn */
+        .card {
+            width: 88%;
+            max-width: 320px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 25px;
+            padding: 25px 15px;
+            text-align: center;
+            z-index: 10;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.2);
         }
 
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-15px);
-            }
-            100% {
-                transform: translateY(0px);
-            }
+        .sticker {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 15px;
+            display: block;
+            animation: bounce 2s infinite ease-in-out;
         }
 
-        /* Music button */
-        .music-toggle {
-            position: absolute;
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Tiêu đề */
+        h1 {
+            color: #d81b60;
+            font-size: 1.25rem;
+            margin: 0 0 15px 0;
+            white-space: nowrap;
+        }
+
+        /* Nội dung văn bản mới */
+        .message {
+            color: #444;
+            font-size: 0.82rem; /* Chỉnh nhỏ lại một chút để không xuống dòng xấu */
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .heart-text {
+            color: #e91e63;
+            font-weight: bold;
+            font-size: 0.95rem;
+            display: block;
+            margin-top: 15px;
+        }
+
+        .note {
+            font-size: 0.65rem;
+            color: #666;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        #music-btn {
+            position: fixed;
             top: 20px;
             right: 20px;
-            background-color: #ff80ab;
-            color: white;
+            background: rgba(255, 255, 255, 0.4);
             border: none;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            font-size: 1.2em;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 100;
             display: flex;
-            justify-content: center;
             align-items: center;
-            transition: background-color 0.3s ease;
-            z-index: 20;
-        }
-
-        .music-toggle:hover {
-            background-color: #d81b60;
+            justify-content: center;
         }
     </style>
 </head>
-<body>
-    <div class="music-toggle" id="musicToggle">🎶</div>
+<body onclick="startMusic()">
 
-    <div class="card-container">
+    <button id="music-btn">🎵</button>
+
+    <div class="card">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHYybm9pNm1ndXF4bmE1eGZicWxqZzh4Z3B4amV4Zzh4Z3B4amV4ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/L4lvBpHFmE01BwR4rI/giphy.gif" class="sticker">
+        
         <h1>Bé iu cố lên nhé ❤️</h1>
-        <p>
+        
+        <div class="message">
             Tối nay bé cứ bình tĩnh, tự tin, hông phải lo lắng gì cả<br>
             Anh dù ở hơi xa nhưng luôn dõi theo và cổ vũ bé hết mình!<br>
             Bé đừng áp lực gì nhen, cứ thoải mái phát huy hết sức nha!<br>
             Cục dàng của anh là giỏi nhất! 🏆
-        </p>
-        <p>Yêu bé nhiều lắm ó</p>
-        <p style="font-style: italic; font-size: 0.9em; margin-top: 30px;">(Chạm vào màn hình để bật/tắt nhạc nhé!)</p>
+            <span class="heart-text">Yêu bé nhiều lắm ó</span>
+        </div>
+
+        <div class="note">(Chạm vào màn hình để nghe nhạc nha bé)</div>
     </div>
 
-    <div class="cute-sticker"></div>
-
-    <audio id="backgroundMusic" loop>
-        <source src="background_music.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+    <audio id="bg-music" loop>
+        <source src="background_music.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // Sakura Petals Script
-        const body = document.body;
-        const numPetals = 50; // Number of petals
-
-        // Function to create a single petal
-        function createPetal() {
-            const petal = document.createElement('div');
-            petal.classList.add('petal');
-            petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.animationDuration = Math.random() * 10 + 5 + 's'; // 5 to 15 seconds
-            petal.style.animationDelay = Math.random() * 10 + 's';
-            petal.style.setProperty('--end-x', (Math.random() * 200 - 100) + 'px'); // Random horizontal drift
-            petal.style.setProperty('--rotation-end', (Math.random() * 360 + 720) + 'deg'); // Random rotation
-            body.appendChild(petal);
-
-            // Remove petal after animation ends to prevent too many elements
-            petal.addEventListener('animationend', () => {
-                petal.remove();
-                createPetal(); // Create a new petal to keep them falling
-            });
-        }
-
-        // Create initial petals
-        for (let i = 0; i < numPetals; i++) {
-            createPetal();
-        }
-
-        // Music Toggle Script
-        const backgroundMusic = document.getElementById('backgroundMusic');
-        const musicToggle = document.getElementById('musicToggle');
-        let isPlaying = false;
-
-        // Function to play/pause music
-        function toggleMusic() {
-            if (isPlaying) {
-                backgroundMusic.pause();
-                musicToggle.textContent = '🔇'; // Muted icon
-            } else {
-                backgroundMusic.play().catch(e => console.log("Music auto-play prevented. User needs to interact."));
-                musicToggle.textContent = '🎶'; // Playing icon
+        // Hiệu ứng cánh hoa rơi
+        function createSakura() {
+            const petalCount = 12; 
+            for (let i = 0; i < petalCount; i++) {
+                setTimeout(() => {
+                    const petal = document.createElement('div');
+                    petal.className = 'sakura';
+                    petal.style.left = Math.random() * 100 + 'vw';
+                    const size = Math.random() * 7 + 7 + 'px';
+                    petal.style.width = size;
+                    petal.style.height = size;
+                    petal.style.animationDuration = Math.random() * 3 + 5 + 's';
+                    document.body.appendChild(petal);
+                    
+                    petal.addEventListener('animationiteration', () => {
+                        petal.style.left = Math.random() * 100 + 'vw';
+                    });
+                }, i * 400);
             }
-            isPlaying = !isPlaying;
         }
+        createSakura();
 
-        // Add event listener for the button
-        musicToggle.addEventListener('click', toggleMusic);
+        // Phát nhạc khi chạm
+        const music = document.getElementById('bg-music');
+        let isStarted = false;
 
-        // Add event listener for body tap/click to play music (for mobile browsers that prevent autoplay)
-        document.addEventListener('click', function() {
-            if (!isPlaying && backgroundMusic.paused) {
-                backgroundMusic.play().then(() => {
-                    isPlaying = true;
-                    musicToggle.textContent = '🎶';
-                }).catch(e => console.log("User interaction for music play detected."));
+        function startMusic() {
+            if (!isStarted) {
+                music.play().catch(e => console.log("Cần chạm để phát nhạc"));
+                isStarted = true;
             }
-        });
-        
-        // Initial state of music button
-        musicToggle.textContent = '🔇'; // Start muted
+        }
     </script>
 </body>
 </html>
