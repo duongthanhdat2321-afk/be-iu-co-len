@@ -14,21 +14,32 @@
             font-family: 'Arial', sans-serif;
         }
 
-        /* Hiệu ứng hoa anh đào rơi - Khôi phục chuẩn tuần trước */
+        /* Hiệu ứng hoa 🌸 rơi mượt mà */
         .sakura {
             position: absolute;
-            background-color: #ffb7c5;
-            border-radius: 100% 0 100% 100%;
-            opacity: 0.7;
+            top: -10vh; /* Luôn bắt đầu từ ngoài màn hình phía trên */
+            font-size: 20px;
+            user-select: none;
             pointer-events: none;
             animation: fall linear infinite;
             z-index: 1;
         }
+
         @keyframes fall {
-            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         .card {
@@ -59,11 +70,10 @@
             line-height: 1.3;
         }
 
-        /* Chỉnh cỡ chữ lớn hơn để khi xuống dòng nhìn đầy đặn và đẹp hơn */
         .message {
             color: #444;
-            font-size: 1.05rem; /* Tăng cỡ chữ */
-            line-height: 1.7; /* Tăng khoảng cách dòng */
+            font-size: 1.05rem;
+            line-height: 1.7;
             margin: 0;
             text-align: center;
             word-wrap: break-word;
@@ -72,7 +82,7 @@
         .heart-text {
             color: #e91e63;
             font-weight: bold;
-            font-size: 1.2rem; /* Tăng cỡ chữ yêu thương */
+            font-size: 1.2rem;
             display: block;
             margin-top: 20px;
         }
@@ -125,19 +135,30 @@
 
     <script>
         function createSakura() {
-            const petalCount = 30;
+            const petalCount = 25;
             for (let i = 0; i < petalCount; i++) {
                 const petal = document.createElement('div');
                 petal.className = 'sakura';
+                petal.innerHTML = '🌸'; // Sử dụng icon bạn chọn
+                
+                // Vị trí ngang ngẫu nhiên
                 petal.style.left = Math.random() * 100 + 'vw';
-                const size = Math.random() * 10 + 10 + 'px';
-                petal.style.width = size;
-                petal.style.height = size;
+                
+                // Kích thước ngẫu nhiên
+                const size = Math.random() * 10 + 15 + 'px';
+                petal.style.fontSize = size;
+                
+                // Tốc độ rơi ngẫu nhiên
                 petal.style.animationDuration = Math.random() * 5 + 5 + 's';
-                petal.style.animationDelay = Math.random() * 8 + 's';
+                
+                // Sửa lỗi rơi từ giữa: Lượt đầu tiên cho delay ngắn để rơi từ trên xuống ngay
+                petal.style.animationDelay = Math.random() * 10 + 's';
+                
                 document.body.appendChild(petal);
             }
         }
+        
+        // Gọi hàm tạo hoa
         createSakura();
 
         const music = document.getElementById('bg-music');
