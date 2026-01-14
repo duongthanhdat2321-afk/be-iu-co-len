@@ -10,46 +10,46 @@
             margin: 0; padding: 0; overflow: hidden;
             display: flex; justify-content: center; align-items: center;
             min-height: 100vh;
-            background: linear-gradient(180deg, #ffafbd 0%, #ffc3a0 100%);
+            /* Nền hồng rất nhạt để làm nổi bật hoa anh đào */
+            background: linear-gradient(180deg, #fff0f3 0%, #ffdeeb 100%);
             font-family: 'Arial', sans-serif;
         }
 
-        /* Hiệu ứng cánh hoa rơi tuần trước - Nhẹ và tách nền tuyệt đối */
+        /* Cánh hoa Sakura màu đậm để nổi bật trên nền nhạt */
         .dot {
             position: absolute;
-            width: 10px; height: 10px;
-            background: #ffb7c5;
+            width: 8px; height: 8px;
+            background: #ff4d94; /* Hồng đậm nổi bật */
             border-radius: 100% 0 100% 100%;
             pointer-events: none;
-            z-index: 1;
+            z-index: 99; /* Đưa lên trên cùng */
             animation: fall linear infinite;
+            box-shadow: 0 0 2px rgba(0,0,0,0.1);
         }
         @keyframes fall {
-            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
             100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
 
-        /* Khung Card nhỏ lại để lộ nền nhiều hơn */
         .card {
-            width: 85%;
-            max-width: 300px;
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            width: 92%;
+            max-width: 340px;
+            background: rgba(255, 255, 255, 0.5); /* Trong suốt hơn nữa */
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             border-radius: 20px;
             padding: 20px 10px;
             text-align: center;
             z-index: 10;
-            box-shadow: 0 8px 32px rgba(255, 105, 180, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
-        /* Dùng tệp GIF có sẵn trên GitHub của bạn */
         .sticker {
-            width: 80px; height: 80px;
+            width: 70px; height: 70px;
             margin: 0 auto 10px;
             display: block;
-            object-fit: contain;
         }
 
         h1 {
@@ -59,32 +59,38 @@
             white-space: nowrap;
         }
 
-        /* Nội dung văn bản ép nhỏ để không xuống dòng */
         .content {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
+            width: 100%;
         }
 
+        /* Dùng vw để chữ tự động thu nhỏ theo màn hình, không bị hiện dấu ... */
         .line {
             color: #444;
-            font-size: 0.75rem; /* Cỡ chữ nhỏ để vừa màn hình điện thoại */
+            font-size: 3.1vw; /* Tự co giãn theo màn hình */
             white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            text-align: center;
+            display: block;
+        }
+
+        /* Giới hạn cỡ chữ tối đa cho màn hình lớn như Tablet/PC */
+        @media (min-width: 400px) {
+            .line { font-size: 13px; }
         }
 
         .heart-text {
             color: #e91e63;
             font-weight: bold;
-            font-size: 0.9rem;
+            font-size: 1rem;
             margin-top: 10px;
             display: block;
         }
 
         .note {
-            font-size: 0.6rem;
-            color: #777;
+            font-size: 0.65rem;
+            color: #888;
             margin-top: 15px;
             font-style: italic;
         }
@@ -98,11 +104,11 @@
         <h1>Bé iu cố lên nhé ❤️</h1>
         
         <div class="content">
-            <div class="line">Tối nay bé cứ bình tĩnh, tự tin, hông phải lo lắng gì cả</div>
-            <div class="line">Anh dù ở hơi xa nhưng luôn dõi theo và cổ vũ bé hết mình!</div>
-            <div class="line">Bé đừng áp lực gì nhen, cứ thoải mái phát huy hết sức nha!</div>
-            <div class="line">Cục dàng của anh là giỏi nhất! 🏆</div>
-            <div class="heart-text">Yêu bé nhiều lắm ó</div>
+            <span class="line">Tối nay bé cứ bình tĩnh, tự tin, hông phải lo lắng gì cả</span>
+            <span class="line">Anh dù ở hơi xa nhưng luôn dõi theo và cổ vũ bé hết mình!</span>
+            <span class="line">Bé đừng áp lực gì nhen, cứ thoải mái phát huy hết sức nha!</span>
+            <span class="line">Cục dàng của anh là giỏi nhất! 🏆</span>
+            <span class="heart-text">Yêu bé nhiều lắm ó</span>
         </div>
 
         <div class="note">(Chạm vào màn hình để nghe nhạc nhen)</div>
@@ -113,15 +119,19 @@
     </audio>
 
     <script>
-        // Hiệu ứng rơi tuần trước
         function spawnPetals() {
-            for (let i = 0; i < 20; i++) {
+            const count = 25;
+            for (let i = 0; i < count; i++) {
                 let petal = document.createElement('div');
                 petal.className = 'dot';
                 petal.style.left = Math.random() * 100 + 'vw';
-                petal.style.animationDuration = (Math.random() * 3 + 3) + 's';
-                petal.style.animationDelay = Math.random() * 5 + 's';
+                petal.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                petal.style.animationDelay = (Math.random() * 5) + 's';
                 document.body.appendChild(petal);
+                
+                petal.addEventListener('animationiteration', () => {
+                    petal.style.left = Math.random() * 100 + 'vw';
+                });
             }
         }
         spawnPetals();
@@ -130,7 +140,7 @@
         let isStarted = false;
         function startMusic() {
             if (!isStarted) {
-                music.play().catch(e => console.log("Audio Play Error"));
+                music.play();
                 isStarted = true;
             }
         }
